@@ -17,6 +17,7 @@ app.use(cors(corsOptions));
 
 // Routes
 app.use("/", require("./routes/latestData"));
+app.use("/address", require("./routes/address"));
 
 
 const PORT = process.env.PORT || 3500;
