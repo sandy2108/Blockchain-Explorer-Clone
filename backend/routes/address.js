@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-
-
 async function gettokenBalances({ address }) {
     try {
         if (!address) {
@@ -10,46 +8,45 @@ async function gettokenBalances({ address }) {
         }
 
         const apiKey = process.env.MOBULA_API_KEY;
-        const response = await fetch(`https://api.mobula.io/api/1/wallet/portfolio?wallet=${address}&blockchains=1%2CEthereum`, {
+        const response = await axios.get(`https://api.mobula.io/api/1/wallet/portfolio?wallet=${address}&blockchains=1%2CEthereum`, {
             headers: {
                 'Authorization': apiKey,
                 'Content-Type': 'application/json',
             },
         });
 
-        const result = await response.json();
+        if (response && response.data && response.data.assets) {
+            const ethereumAssets = response.data.assets.filter(item => item.asset.name === "Ethereum");
+            const remainingAssets = response.data.assets.filter(item => item.asset.name !== "Ethereum" && item.token_balance > 0);
 
-        if (result && result.data && result.data.assets) {
-            const ethereumAssets = result.data.assets.filter(item => item.asset.name === "Ethereum");
-            const remainingAssets = result.data.assets.filter(item => item.asset.name !== "Ethereum" && item.token_balance > 0);
-
-            result.data.ethereumAssets = ethereumAssets;
-            result.data.assets = remainingAssets;
+            response.data.ethereumAssets = ethereumAssets;
+            response.data.assets = remainingAssets;
         }
 
-        return result;
+        return response.data;
     } catch (err) {
         console.error(`Error in gettokenBalances: ${err}`);
-        return { error: err.message };
+        return { error: "Failed to fetch token balances" };
     }
 }
-
-
-
 
 async function getTransaction({ address, transactiontype }) {
     try {
         const apiKey = process.env.ETHERSCAN_API_KEY;
         const apiUrl = `https://api.etherscan.io/api`;
-        const response = await fetch(`${apiUrl}?module=account&action=${transactiontype}&address=${address}&page=1&offset=25&startblock=0&endblock=99999999&sort=desc&apikey=${apiKey}`);
-        const data = await response.json();
+        const { data } = await axios.get(`${apiUrl}?module=account&action=${transactiontype}&address=${address}&page=1&offset=25&startblock=0&endblock=99999999&sort=desc&apikey=${apiKey}`);
 
-        return data;
+        if (data.status === "1") {
+            return data.result;
+        } else {
+            return { error: data.message || "Failed to fetch transactions" };
+        }
     } catch (err) {
-        console.error("Error in getNormalTransaction:", err);
-        return { error: err.message };
+        console.error("Error in getTransaction:", err);
+        return { error: "Failed to fetch transactions" };
     }
 }
+
 
 router.get("/:address", async (req, res) => {
     try {
