@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import api from "../features/latestdata/latestdata-api-slice";
+import { api } from "../features/api/apislice";
 
 export const store = configureStore({
     reducer: {
