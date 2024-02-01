@@ -1,4 +1,5 @@
 const express = require("express");
+const axios = require("axios");
 const router = express.Router();
 const { alchemy } = require("../config/config");
 
@@ -13,6 +14,25 @@ function timeAgo(timestamp) {
         return `${Math.floor(secondsAgo / 3600)} hours`;
     }
 }
+
+async function fetchMarketData() {
+    try {
+
+        const apiKey = process.env.MOBULA_API_KEY;
+        const response = await axios.get("https://api.mobula.io/api/1/market/data?asset=Ethereum&blockchain=Ethereum&symbol=ETH", {
+            headers: {
+                'Authorization': apiKey,
+                'Content-Type': 'application/json',
+            }
+        })
+
+        return response.data;
+    } catch (err) {
+        console.error(`Error in getMarketData: ${err}`);
+        return { error: "Failed to fetch ETH Market Data" };
+    }
+}
+
 
 const fetchLatestBlockData = async () => {
     try {
@@ -77,10 +97,12 @@ const fetchLatestTransactionData = async () => {
 
 router.get("/", async (req, res) => {
     try {
+        const marketData = await fetchMarketData();
         const latestBlock = await fetchLatestBlockData();
         const latestBlockTransaction = await fetchLatestTransactionData();
 
-        res.json({ latestBlock, latestBlockTransaction }); // Send an object with properties
+
+        res.json({ marketData, latestBlock, latestBlockTransaction }); // Send an object with properties
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: err.message });
