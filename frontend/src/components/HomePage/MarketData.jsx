@@ -24,7 +24,7 @@ const MarketData = (ethData) => {
                                         </h1>
                                         <span className="text-[15px] leading-6">
                                             {formatNumbers(ethData.ethData.price, 2)}&nbsp;
-                                            <span className={ethData.ethData.volume_change_24h < 0 ? 'text-red-500' : 'text-green-400'}>
+                                            <span className={ethData.ethData.volume_change_24h < 0 ? 'text-red-500' : 'text-green-600'}>
                                                 ( {formatNumbers(ethData.ethData.volume_change_24h, 2)}%)
                                             </span>
                                         </span>
@@ -44,38 +44,41 @@ const MarketData = (ethData) => {
 
                             <div className="col-span-4 md:border-r md:px-2">
                                 <div className="border-b py-3 flex gap-2 items-center">
-                                    <SvgServerIcon />
+
                                     <div className="flex items-center justify-between w-full gap-3">
                                         <div>
                                             <h1 className="text-[12px] leading-[18px] text-[#6c757d] uppercase font-normal">
-                                                Transactions
+                                                Change (1H)
                                             </h1>
-                                            <p className="text-[15px] leading-6">
-                                                2,057.34 M (12.2 TPS)
+                                            <p className={ethData.ethData.price_change_1h < 0 ? 'text-red-500' : 'text-green-600'}>
+                                                {formatNumbers(ethData.ethData.price_change_1h, 2)}%
                                             </p>
                                         </div>
                                         <div>
                                             <h1 className="text-[12px] leading-[18px] text-[#6c757d] uppercase font-normal">
-                                                Med Gas Price
+                                                Change (7D)
                                             </h1>
-                                            <p className="text-[15px] leading-6">19 Gwei ($0.74)</p>
+                                            <p className={`leading-[15px] text-[15px] ${ethData.ethData.price_change_7d < 0 ? 'text-red-500' : 'text-green-600'}`}>
+                                                {formatNumbers(ethData.ethData.price_change_7d, 2)}%
+                                            </p>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div className="py-3 flex gap-2 items-center">
-                                    <SvgMeterIcon />
+
                                     <div className="flex items-center justify-between w-full gap-3">
                                         <div>
                                             <h1 className="text-[12px] leading-[18px] text-[#6c757d]">
-                                                LAST FINALIZED BLOCK
+                                                Change (1W)
                                             </h1>
-                                            <p className="text-[15px] leading-6">17876382</p>
+                                            <p className={`leading-[15px] text-[15px] ${ethData.ethData.price_change_1m < 0 ? 'text-red-500' : 'text-green-600'}`}>{formatNumbers(ethData.ethData.price_change_1m, 2)}%</p>
                                         </div>
                                         <div>
                                             <h1 className="text-[12px] leading-[18px] text-[#6c757d] uppercase font-normal">
-                                                Last Safe Block
+                                                Change (1M)
                                             </h1>
-                                            <p className="text-[15px] leading-6">17876414</p>
+                                            <p className={`leading-[15px] text-[15px] ${ethData.ethData.price_change_1y < 0 ? 'text-red-500' : 'text-green-600'}`}>{formatNumbers(ethData.ethData.price_change_1y, 2)}%</p>
                                         </div>
                                     </div>
                                 </div>
