@@ -84,12 +84,46 @@ const MarketData = (ethData) => {
                                 </div>
                             </div>
                             <div className="col-span-4 md:px-2">
-                                <div className="py-3 items-center mx-2">
-                                    <h1 className="text-[12px] leading-[18px] text-[#6c757d] uppercase font-normal">
-                                        TRANSACTION HISTORY IN 14 DAYS
-                                    </h1>
+                                <div className="border-b py-3 flex gap-2 items-center">
+
+                                    <div className="flex items-center justify-between w-full gap-3">
+                                        <div>
+                                            <h1 className="text-[12px] leading-[18px] text-[#6c757d] uppercase font-normal">
+                                                Volume
+                                            </h1>
+                                            <p className="text-[15px] leading-[15px]">
+                                                ${formatNumbers(ethData.ethData.volume)}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <h1 className="text-[12px] leading-[18px] text-[#6c757d] uppercase font-normal">
+                                                Volume (7d)
+                                            </h1>
+                                            <p className="leading-[15px] text-[15px]">
+                                                ${formatNumbers(ethData.ethData.volume_7d)}
+                                            </p>
+
+                                        </div>
+                                    </div>
                                 </div>
-                                <div></div>
+                                <div className="py-3 flex gap-2 items-center">
+
+                                    <div className="flex items-center justify-between w-full gap-3">
+
+                                        <div>
+                                            <h1 className="text-[12px] leading-[18px] text-[#6c757d] uppercase font-normal">
+                                                All Time Low (ATL)
+                                            </h1>
+                                            <p className="leading-[15px] text-[15px]">${formatNumbers(ethData.ethData.atl, 2)}</p>
+                                        </div>
+                                        <div>
+                                            <h1 className="text-[12px] leading-[18px] text-[#6c757d]">
+                                                All Time High (ATH)
+                                            </h1>
+                                            <p className="leading-[15px] text-[15px]">${formatNumbers(ethData.ethData.ath, 2)}</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
