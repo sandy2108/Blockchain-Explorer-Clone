@@ -53,40 +53,29 @@ router.get("/:address", async (req, res) => {
     try {
         const address = req.params.address;
 
-        const [
-            normalTransaction,
-            internalTransaction,
-            erc20Transaction,
-            erc721Transaction,
-            erc1155Transaction,
-
-
-        ] = await Promise.all([
+        const transactions = await Promise.all([
             getTransaction({ address, transactiontype: "txlist" }),
             getTransaction({ address, transactiontype: "txlistinternal" }),
             getTransaction({ address, transactiontype: "tokentx" }),
             getTransaction({ address, transactiontype: "tokennfttx" }),
             getTransaction({ address, transactiontype: "token1155tx" }),
-
-
         ]);
-
 
         const tokenBalance = await gettokenBalances({ address });
 
-
         return res.json({
-            normalTransaction,
-            internalTransaction,
-            erc20Transaction,
-            erc721Transaction,
-            erc1155Transaction,
+            transactions: {
+                normal: transactions[0],
+                internal: transactions[1],
+                erc20: transactions[2],
+                erc721: transactions[3],
+                erc1155: transactions[4],
+            },
             tokenBalance,
-
         });
     } catch (error) {
         console.error(`Error in router handler: ${error}`);
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: error.message || "Internal Server Error" });
     }
 });
 
