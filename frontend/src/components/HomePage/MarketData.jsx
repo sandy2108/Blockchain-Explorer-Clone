@@ -24,11 +24,10 @@ const MarketData = (ethData) => {
                                         </h1>
                                         <span className="text-[15px] leading-6">
                                             {formatNumbers(ethData.ethData.price, 2)}&nbsp;
-                                            <span className={ethData.ethData.volume_change_24h < 0 ? 'text-red-500' : 'text-green-600'}>
-                                                ( {formatNumbers(ethData.ethData.volume_change_24h, 2)}%)
+                                            <span className={ethData.ethData.price_change_24h < 0 ? 'text-red-500' : 'text-green-600'}>
+                                                ( {formatNumbers(ethData.ethData.price_change_24h, 2)}%)
                                             </span>
                                         </span>
-
                                     </div>
                                 </div>
                                 <div className="py-3 flex gap-3 items-center">
@@ -70,13 +69,13 @@ const MarketData = (ethData) => {
                                     <div className="flex items-center justify-between w-full gap-3">
                                         <div>
                                             <h1 className="text-[12px] leading-[18px] text-[#6c757d]">
-                                                Change (1W)
+                                                Change (1M)
                                             </h1>
                                             <p className={`leading-[15px] text-[15px] ${ethData.ethData.price_change_1m < 0 ? 'text-red-500' : 'text-green-600'}`}>{formatNumbers(ethData.ethData.price_change_1m, 2)}%</p>
                                         </div>
                                         <div>
                                             <h1 className="text-[12px] leading-[18px] text-[#6c757d] uppercase font-normal">
-                                                Change (1M)
+                                                Change (1Y)
                                             </h1>
                                             <p className={`leading-[15px] text-[15px] ${ethData.ethData.price_change_1y < 0 ? 'text-red-500' : 'text-green-600'}`}>{formatNumbers(ethData.ethData.price_change_1y, 2)}%</p>
                                         </div>
