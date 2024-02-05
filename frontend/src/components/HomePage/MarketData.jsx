@@ -8,7 +8,7 @@ import {
 import { formatNumbers } from "../../utils/formatNumbers"
 
 const MarketData = (ethData) => {
-    console.log(ethData)
+
     return (
         <div className="relative -top-12">
             <div className="max-w-[1380px] mx-auto p-4">
