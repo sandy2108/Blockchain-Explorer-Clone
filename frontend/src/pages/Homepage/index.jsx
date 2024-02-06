@@ -7,14 +7,14 @@ import Loader from "../../utils/Loader.jsx"
 
 
 const index = () => {
-    const { data, isFetching, isError, refetch } = useFetchLatestDataQuery();
+    const { data, isFetching, isLoading, isError, refetch } = useFetchLatestDataQuery();
 
 
     useEffect(() => {
         refetch();
     }, []);
 
-    if (isFetching) {
+    if (isLoading) {
         return <Loader />;
     }
 
