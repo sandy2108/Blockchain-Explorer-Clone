@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const alchemy = require("../config/config");
+const { alchemy } = require("../config/config");
 
 router.get("/:tx", async (req, res) => {
     try {
