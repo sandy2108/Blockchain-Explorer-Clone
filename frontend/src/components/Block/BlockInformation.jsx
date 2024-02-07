@@ -31,17 +31,17 @@ const BlockInformation = ({ data }) => {
                     <div className='border-b-2 border-gray-300 '>
                         <div className='md:flex my-5'>
                             <p className='md:min-w-[300px] flex items-center gap-1 text-[15px] text-[#081d35] md:text-[#6c757d]'> <span><FaRegCircleQuestion /></span> Fee Recipient:</p>
-                            <p className='text-[15px] cursor-pointer break-words md:flex gap-2 justify-start text-[#066a9c] items-start'>{data.miner}</p>
+                            <p className='text-[15px]  break-words md:flex gap-2 justify-start text-[#066a9c] items-start'>{data.miner}</p>
 
                         </div>
                         <div className='md:flex my-5'>
                             <p className='md:min-w-[300px] flex items-center gap-1 text-[15px] text-[#081d35] md:text-[#6c757d]'> <span><FaRegCircleQuestion /></span>BlockHash:</p>
-                            <p className='text-[15px] cursor-pointer break-words md:flex gap-2 text-[#066a9c] justify-start  items-start'>{data.hash}</p>
+                            <p className='text-[15px] break-words md:flex gap-2 text-[#066a9c] justify-start  items-start'>{data.hash}</p>
 
                         </div>
                         <div className='md:flex my-5'>
                             <p className='md:min-w-[300px] flex items-center gap-1 text-[15px] text-[#081d35] md:text-[#6c757d]'> <span><FaRegCircleQuestion /></span>ParentHash:</p>
-                            <p className='text-[15px] cursor-pointer break-words md:flex gap-2 text-[#066a9c] justify-start  items-start'>{data.parentHash}</p>
+                            <p className='text-[15px]  break-words md:flex gap-2 text-[#066a9c] justify-start  items-start'>{data.parentHash}</p>
 
                         </div>
 
@@ -50,18 +50,18 @@ const BlockInformation = ({ data }) => {
                     <div className=''>
                         <div className='md:flex my-5'>
                             <p className='md:min-w-[300px] flex items-center gap-1 text-[15px] text-[#081d35] md:text-[#6c757d]'> <span><FaRegCircleQuestion /></span>Gas Used:</p>
-                            <p className='text-[15px] cursor-pointer break-words md:flex gap-2 justify-start  items-start'>{parseInt(data.gasUsed.hex, 16)}</p>
+                            <p className='text-[15px]  break-words md:flex gap-2 justify-start  items-start'>{parseInt(data.gasUsed.hex, 16)}</p>
 
                         </div>
                         <div className='md:flex my-5'>
                             <p className='md:min-w-[300px] flex items-center gap-1 text-[15px] text-[#081d35] md:text-[#6c757d]'> <span><FaRegCircleQuestion /></span>Gas Limit:</p>
-                            <p className='text-[15px] cursor-pointer break-words md:flex gap-2  justify-start  items-start'>{parseInt(data.gasLimit.hex, 16)}</p>
+                            <p className='text-[15px]  break-words md:flex gap-2  justify-start  items-start'>{parseInt(data.gasLimit.hex, 16)}</p>
 
                         </div>
                         <div className='md:flex my-5'>
 
                             <p className='md:min-w-[300px] flex items-center gap-1 text-[15px] text-[#081d35] md:text-[#6c757d]'> <span><FaRegCircleQuestion /></span>Extra Data:</p>
-                            <p className='text-[15px] cursor-pointer break-words md:flex gap-2  justify-start  items-start'>(Hex:{data.extraData})</p>
+                            <p className='text-[15px]  break-words md:flex gap-2  justify-start  items-start'>(Hex:{data.extraData})</p>
                         </div>
 
                     </div>
