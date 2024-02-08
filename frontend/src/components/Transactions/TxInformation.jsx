@@ -1,9 +1,20 @@
 import React from 'react'
 import { FaRegCopy } from "react-icons/fa";
 import { FaRegCircleQuestion } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const TxInformation = ({ data }) => {
-    console.log("TxData:", data)
+    const navigate = useNavigate()
+    const handlefromAddress = () => {
+        navigate(`/address/${data.from}`);
+    }
+    const handletoAddress = () => {
+        navigate(`/address/${data.to}`);
+    }
+
+    const handleBlock = () => {
+        navigate(`/block/${data.blockNumber}`)
+    }
     return (
         <div className='bg-[#ffffff]'>
             <div className='rounded-2xl  border-2 border-gray-300 p-5'>
@@ -39,7 +50,7 @@ const TxInformation = ({ data }) => {
                     </div>
                     <div className=' flex my-5  items-center'>
                         <p className='md:min-w-[300px] flex items-center gap-1 text-[15px] text-[#081d35] md:text-[#6c757d]'> <span><FaRegCircleQuestion /></span>Block:</p>
-                        <h2 className='text-[15px] cursor-pointer text-center flex text-[#066a9c] leading-[22px] font-normal'>{data.blockNumber}  <span className='ml-1 rounded-md px-2 py-1 text-[11px] font-medium text-black leading-3 border-slate-20 border'>{data.confirmations} Block Confirmations</span></h2>
+                        <h2 onClick={handleBlock} className='text-[15px] cursor-pointer text-center flex text-[#066a9c] leading-[22px] font-normal'>{data.blockNumber}  <span className='ml-1 rounded-md px-2 py-1 text-[11px] font-medium text-black leading-3 border-slate-20 border'>{data.confirmations} Block Confirmations</span></h2>
 
                     </div>
                 </div>
@@ -47,7 +58,7 @@ const TxInformation = ({ data }) => {
                 <div className=''>
                     <div className='md:flex my-5'>
                         <p className='md:min-w-[300px] flex items-center gap-1 text-[15px] text-[#081d35] md:text-[#6c757d]'> <span><FaRegCircleQuestion /></span>From:</p>
-                        <p className='text-[15px] cursor-pointer break-words md:flex gap-2 justify-start text-[#066a9c] items-start'>{data.from}  <FaRegCopy
+                        <p onClick={handlefromAddress} className='text-[15px] cursor-pointer break-words md:flex gap-2 justify-start text-[#066a9c] items-start'>{data.from}  <FaRegCopy
                             size={15}
                             className="cursor-pointer text-gray-500"
                         /></p>
@@ -55,7 +66,7 @@ const TxInformation = ({ data }) => {
                     </div>
                     <div className='md:flex my-5'>
                         <p className='md:min-w-[300px] flex items-center gap-1 text-[15px] text-[#081d35] md:text-[#6c757d]'> <span><FaRegCircleQuestion /></span>To:</p>
-                        <p className='text-[15px] cursor-pointer break-words md:flex gap-2 text-[#066a9c] justify-start  items-start'>{data.to} <FaRegCopy
+                        <p onClick={handletoAddress} className='text-[15px] cursor-pointer break-words md:flex gap-2 text-[#066a9c] justify-start  items-start'>{data.to} <FaRegCopy
                             size={15}
                             className="cursor-pointer text-gray-500"
                         /></p>

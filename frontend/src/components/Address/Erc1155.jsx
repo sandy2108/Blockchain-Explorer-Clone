@@ -5,9 +5,22 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 import { FaRegCopy } from "react-icons/fa";
 import { getShortenFirstAddress, getShortenAddress } from "../../utils/shortenAddress";
 import { timeDifference } from "../../utils/time";
+import { useNavigate } from "react-router-dom";
 
 const Erc1155 = ({ data, address }) => {
     if (data.error) { return <p className="text-center py-5">No ERC1155 Transactions found</p> }
+    const navigate = useNavigate();
+
+    const handlefromAddress = (from) => {
+        navigate(`/address/${from}`);
+    }
+    const handletoAddress = (to) => {
+        navigate(`/address/${to}`);
+    }
+
+    const handleTransactionHash = (hash) => {
+        navigate(`/tx/${hash}`);
+    }
     return (
         <div className="w-full">
             <div className="max-w-[1380px] mx-auto">
@@ -60,7 +73,7 @@ const Erc1155 = ({ data, address }) => {
                                             </div>
                                         </td>
                                         <td className="pl-2  text-[14px] leading-[22px] font-normal whitespace-nowrap text-[#066a9c] flex my-2 ">
-                                            <p className="overflow-hidden  max-w-[130px]">
+                                            <p onClick={() => handleTransactionHash(transaction.hash)} className="overflow-hidden cursor-pointer  max-w-[130px]">
                                                 {getShortenFirstAddress(transaction.hash, 19)}
                                             </p>
 
@@ -75,7 +88,7 @@ const Erc1155 = ({ data, address }) => {
                                             {timeDifference(transaction.timeStamp)}
                                         </td>
                                         <td className="flex  text-[14px] max-w-[170px] leading-5   md:px-0  whitespace-nowrap gap-1">
-                                            <p className={`${transaction.from === address.toLowerCase()
+                                            <p onClick={() => handlefromAddress(transaction.from)} className={`cursor-pointer ${transaction.from === address.toLowerCase()
                                                 ? ""
                                                 : "text-[#066a9c]"
                                                 }`}>{getShortenAddress(transaction.from)}</p>{" "}
@@ -100,7 +113,7 @@ const Erc1155 = ({ data, address }) => {
 
                                         <td className=" items-center  text-[14px] max-w-[170px] leading-5   md:px-0  whitespace-nowrap gap-1">
                                             <div className="flex items-center gap-1">
-                                                <p className={`${transaction.to === address.toLowerCase()
+                                                <p onClick={() => handletoAddress(transaction.to)} className={`cursor-pointer ${transaction.to === address.toLowerCase()
                                                     ? ""
                                                     : "text-[#066a9c]"
                                                     }`}>{getShortenAddress(transaction.to)}</p>{" "}

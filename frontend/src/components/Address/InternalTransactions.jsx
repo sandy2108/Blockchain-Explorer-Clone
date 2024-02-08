@@ -5,10 +5,29 @@ import { FaRegCopy } from "react-icons/fa";
 import { formatNumbers } from "../../utils/formatNumbers.jsx";
 import { getShortenAddress, getShortenFirstAddress } from "../../utils";
 import { timeDifference } from "../../utils/time.jsx";
+import { useNavigate } from "react-router-dom";
 
 
 const InternalTransactions = ({ data }) => {
     if (data.error) { return <p className="text-center py-5">No Internal Transactions found</p> }
+
+    const navigate = useNavigate();
+
+    const handleBlock = (blockNumber) => {
+        navigate(`/block/${blockNumber}`)
+    }
+
+    const handlefromAddress = (from) => {
+        navigate(`/address/${from}`);
+    }
+    const handletoAddress = (to) => {
+        navigate(`/address/${to}`);
+    }
+
+    const handleTransactionHash = (hash) => {
+        navigate(`/tx/${hash}`);
+    }
+
     return (
         <div className="w-full">
             <div className="max-w-[1380px] mx-auto">
@@ -51,14 +70,14 @@ const InternalTransactions = ({ data }) => {
                                 {Array.isArray(data) && data.slice(0, 25).map((transaction) => (
                                     <tr className="w-full py-5 bg-[#FFFFFF] ">
                                         <td className="pl-2  whitespace-nowrap text-[#066a9c] flex my-2 ">
-                                            <p className="overflow-hidden  text-[14px]  leading-[22px] font-normal ">
+                                            <p onClick={() => handleTransactionHash(transaction.hash)} className="overflow-hidden cursor-pointer text-[14px]  leading-[22px] font-normal ">
                                                 {getShortenFirstAddress(transaction.hash, 19)}
                                             </p>
 
                                         </td>
 
                                         <td className="px-2 md:px-0  text-[#066a9c] ">
-                                            <p className="max-w-[80px]">{transaction.blockNumber}</p>
+                                            <p onClick={() => handleBlock(transaction.blockNumber)} className="max-w-[80px] cursor-pointer">{transaction.blockNumber}</p>
                                         </td>
 
                                         <td className="px-2 md:px-0  whitespace-nowrap text-[14px] leading-[22px]">
@@ -66,7 +85,7 @@ const InternalTransactions = ({ data }) => {
                                         </td>
 
                                         <td className="flex text-[#066a9c] text-[14px] max-w-[170px] leading-5   md:px-0  whitespace-nowrap gap-1">
-                                            <p>{getShortenAddress(transaction.from)}</p>{" "}
+                                            <p onClick={() => handlefromAddress(transaction.from)} className="cursor-pointer">{getShortenAddress(transaction.from)}</p>{" "}
                                             <FaRegCopy
                                                 size={15}
                                                 className=" cursor-pointer text-gray-500"
@@ -74,7 +93,7 @@ const InternalTransactions = ({ data }) => {
                                         </td>
 
                                         <td className="px-2 md:px-0 text-[14px]  font-medium leading-[22px] whitespace-nowrap">
-                                            {getShortenAddress(transaction.to)}
+                                            <p onClick={() => handlefromAddress(transaction.from)} className="cursor-pointer">{getShortenAddress(transaction.to)} </p>
                                         </td>
 
                                         <td className="px-2 md:px-0 text-[14px]  font-medium leading-[22px] whitespace-nowrap">

@@ -19,6 +19,8 @@ const index = () => {
         return <p>Error fetching data.</p>;
     }
 
+
+
     return (
         <div>
             <TxHash data={data} />

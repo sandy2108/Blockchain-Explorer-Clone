@@ -2,6 +2,7 @@ import React from 'react'
 import { getShortenAddress, getShortenFirstAddress } from "../../utils/shortenAddress.jsx"
 import { TbNotes } from "react-icons/tb";
 import { SvgBlockIcon } from "../../assets/Icons";
+import { useNavigate } from "react-router-dom";
 
 
 export const LatestData = ({ block, transaction }) => {
@@ -96,6 +97,19 @@ export const LatestData = ({ block, transaction }) => {
 export default LatestData;
 
 const BlockData = ({ miner, number, timestamp, transactions, agoTimeStamp }) => {
+
+    const navigate = useNavigate();
+    const handleSubmit = () => {
+        navigate(`/block/${number}`);
+    };
+
+    const handleAddress = () => {
+        navigate(`/address/${miner}`);
+    }
+    const handleTxs = () => {
+        navigate(`/txs/${number}`);
+    }
+
     return (
         <div className="min-h-[80px] sm:max-h-[80px] px-4 py-2">
             <div className="min-h-[100px] px-4">
@@ -106,7 +120,7 @@ const BlockData = ({ miner, number, timestamp, transactions, agoTimeStamp }) => 
                         </div>
                         <div className=" mt-1 sm:ml-1 flex sm:block gap-1 ">
                             <div className="sm:hidden flex">Block</div>
-                            <h1 className="text-[15px] text-center text-[#066a9c] leading-[22px] font-normal">
+                            <h1 onClick={handleSubmit} className="text-[15px] hover:cursor-pointer text-center text-[#066a9c] leading-[22px] font-normal">
                                 {number}
                             </h1>
                             <h2 className="text-[13px] leading-5 text-[#6c757d]">
@@ -117,13 +131,13 @@ const BlockData = ({ miner, number, timestamp, transactions, agoTimeStamp }) => 
                     <div className="w-full">
                         <div className="flex flex-wrap md:flex-nowrap items-center  ">
                             <div className="mt-1  items-start">
-                                <p className="text-[15px] leading-[22px] text-[#212529]">
+                                <p onClick={handleAddress} className="text-[15px] leading-[22px] text-[#212529]">
                                     Fee Receipts:{" "}
                                     <span className="text-[#066a9c] cursor-pointer">
                                         {getShortenAddress(miner)}
                                     </span>
                                 </p>
-                                <p className="text-[15px] leading-[22px] text-[#066a9c] cursor-pointer">
+                                <p onClick={handleTxs} className="text-[15px] leading-[22px] text-[#066a9c] cursor-pointer">
                                     {transactions && transactions.length} &nbsp;txns&nbsp;{" "}
                                     <span className="text-[#6c757d] cursor-default">
                                         in {agoTimeStamp}
@@ -149,6 +163,19 @@ const BlockData = ({ miner, number, timestamp, transactions, agoTimeStamp }) => 
 
 
 const TransactionData = ({ ageTimeStamp, to, from, transactionHash }) => {
+    const navigate = useNavigate();
+    const handleTxnHash = () => {
+        navigate(`/tx/${transactionHash}`);
+    };
+
+    const handlefromAddress = () => {
+        navigate(`/address/${from}`);
+    }
+    const handletoAddress = () => {
+        navigate(`/address/${from}`);
+    }
+
+
     return (
         <div className="min-h-[80px] sm:max-h-[80px] px-4 py-2">
             <div className="min-h-[100px] px-4">
@@ -159,7 +186,7 @@ const TransactionData = ({ ageTimeStamp, to, from, transactionHash }) => {
                         </div>
                         <div className=" mt-1 sm:ml-1 flex sm:block gap-1 ">
                             <div className="sm:hidden flex">TX#</div>
-                            <h1 className="text-[15px] text-center text-[#066a9c] leading-[22px] font-normal">
+                            <h1 onClick={handleTxnHash} className="text-[15px] cursor-pointer text-center text-[#066a9c] leading-[22px] font-normal">
                                 {getShortenFirstAddress(transactionHash)}
                             </h1>
                             <h2 className="text-[13px] leading-5 text-[#6c757d]">
@@ -172,13 +199,13 @@ const TransactionData = ({ ageTimeStamp, to, from, transactionHash }) => {
                             <div className="mt-1 items-start">
                                 <p className="text-[15px] leading-[22px] text-[#212529]">
                                     From{" "}
-                                    <span className="text-[#066a9c] cursor-pointer">
+                                    <span onClick={handlefromAddress} className="text-[#066a9c] cursor-pointer">
                                         {getShortenFirstAddress(from)}
                                     </span>
                                 </p>
-                                <p className="text-[15px] leading-[22px] text-[#212529] cursor-pointer">
+                                <p className="text-[15px] leading-[22px] text-[#212529] ">
                                     To
-                                    <span className="text-[#066a9c] ml-1 cursor-default">
+                                    <span onClick={handletoAddress} className="text-[#066a9c] ml-1 cursor-pointer">
                                         {getShortenAddress(to)}
                                     </span>{" "}
                                     <span className="ml-1 rounded-md px-2 py-1 text-[11px] font-medium text-black leading-3 border-slate-20 border sm:hidden">

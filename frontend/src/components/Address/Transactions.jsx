@@ -7,10 +7,26 @@ import { FaRegCopy } from "react-icons/fa";
 import { timeDifference } from "../../utils/time";
 import { formatNumbers } from "../../utils/formatNumbers";
 import { getShortenAddress } from "../../utils/shortenAddress";
-
+import { useNavigate } from "react-router-dom";
 
 
 const Transactions = ({ data, address }) => {
+    const navigate = useNavigate();
+
+    const handleBlock = (blockNumber) => {
+        navigate(`/block/${blockNumber}`)
+    }
+
+    const handlefromAddress = (from) => {
+        navigate(`/address/${from}`);
+    }
+    const handletoAddress = (to) => {
+        navigate(`/address/${to}`);
+    }
+
+    const handleTransactionHash = (hash) => {
+        navigate(`/tx/${hash}`);
+    }
 
     return (
         <div className="w-full">
@@ -78,7 +94,7 @@ const Transactions = ({ data, address }) => {
                                                 </div>
                                             </td>
                                             <td className="pl-2 text-[14px] leading-[22px] font-normal whitespace-nowrap text-[#066a9c] flex my-2 ">
-                                                <p className="overflow-hidden max-w-[130px]">
+                                                <p onClick={() => handleTransactionHash(transaction.hash)} className="overflow-hidden cursor-pointer max-w-[130px]">
                                                     {transaction.hash}
                                                 </p>
                                                 ...
@@ -91,7 +107,7 @@ const Transactions = ({ data, address }) => {
                                                 </p>
                                             </td>
                                             <td className="px-2 md:px-0 text-[#066a9c] ">
-                                                <p className="max-w-[80px]">
+                                                <p onClick={() => handleBlock(transaction.blockNumber)} className="max-w-[80px] cursor-pointer">
                                                     {transaction.blockNumber}
                                                 </p>
                                             </td>
@@ -99,8 +115,8 @@ const Transactions = ({ data, address }) => {
                                                 {timeDifference(transaction.timeStamp)}
                                             </td>
                                             <td className="flex text-[14px] max-w-[190px] leading-5 md:px-0 whitespace-nowrap gap-1">
-                                                <p
-                                                    className={`${transaction.from === address.toLowerCase()
+                                                <p onClick={() => handlefromAddress(transaction.from)}
+                                                    className={`cursor-pointer ${transaction.from === address.toLowerCase()
                                                         ? ""
                                                         : "text-[#066a9c]"
                                                         }`}
@@ -126,8 +142,8 @@ const Transactions = ({ data, address }) => {
                                                 </p>
                                             </td>
                                             <td className="flex text-[14px] max-w-[190px] leading-5 md:px-0 whitespace-nowrap gap-1">
-                                                <p
-                                                    className={`${transaction.to === address.toLowerCase()
+                                                <p onClick={() => handletoAddress(transaction.to)}
+                                                    className={`cursor-pointer ${transaction.to === address.toLowerCase()
                                                         ? ""
                                                         : "text-[#066a9c]"
                                                         }`}

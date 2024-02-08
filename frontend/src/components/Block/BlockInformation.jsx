@@ -1,10 +1,20 @@
-import React from 'react'
+import React from 'react';
 import { FaRegCircleQuestion } from "react-icons/fa6";
 import TimeConverter from '../../utils/TimeConverter';
 import { LuClock4 } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 
 const BlockInformation = ({ data }) => {
-    console.log("TxData:", data)
+    const navigate = useNavigate();
+
+    const handleSubmit = () => {
+        navigate(`/txs/${data.number}`);
+    };
+
+    const handleMiner = () => {
+        navigate(`/address/${data.miner}`)
+    }
+
     return (
         <div className="max-w-[1380px] mx-auto p-4 bg-[#fbfcfd]">
             <div className='bg-[#ffffff]'>
@@ -22,7 +32,7 @@ const BlockInformation = ({ data }) => {
 
                         <div className=' md:flex my-5  items-center'>
                             <p className='md:min-w-[300px] flex items-center gap-1 text-[15px] text-[#081d35] md:text-[#6c757d]'> <span><FaRegCircleQuestion /></span>Transactions:</p>
-                            <p className='text-[#066a9c] text-[15px] leading-[22px] font-medium hover:cursor-pointer'>{data.transactions.length} transactions in this block</p>
+                            <button onClick={handleSubmit} className='text-[#066a9c] text-[15px] leading-[22px] font-medium hover:cursor-pointer'>{data.transactions.length} transactions in this block</button>
 
                         </div>
                     </div>
@@ -31,7 +41,7 @@ const BlockInformation = ({ data }) => {
                     <div className='border-b-2 border-gray-300 '>
                         <div className='md:flex my-5'>
                             <p className='md:min-w-[300px] flex items-center gap-1 text-[15px] text-[#081d35] md:text-[#6c757d]'> <span><FaRegCircleQuestion /></span> Fee Recipient:</p>
-                            <p className='text-[15px]  break-words md:flex gap-2 justify-start text-[#066a9c] items-start'>{data.miner}</p>
+                            <p onClick={handleMiner} className='text-[15px] cursor-pointer break-words md:flex gap-2 justify-start text-[#066a9c] items-start'>{data.miner}</p>
 
                         </div>
                         <div className='md:flex my-5'>
@@ -70,7 +80,7 @@ const BlockInformation = ({ data }) => {
 
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default BlockInformation
+export default BlockInformation;

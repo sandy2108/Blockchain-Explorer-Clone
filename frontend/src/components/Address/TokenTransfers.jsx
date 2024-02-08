@@ -7,9 +7,26 @@ import { FaRegCopy } from "react-icons/fa";
 import { getShortenAddress, getShortenFirstAddress } from "../../utils/shortenAddress";
 import { formatNumbers } from "../../utils/formatNumbers";
 import { timeDifference } from "../../utils/time";
-
+import { useNavigate } from "react-router-dom";
 
 const TokenTransfers = ({ data, address }) => {
+
+    const navigate = useNavigate();
+
+    const handleBlock = (blockNumber) => {
+        navigate(`/block/${blockNumber}`)
+    }
+
+    const handlefromAddress = (from) => {
+        navigate(`/address/${from}`);
+    }
+    const handletoAddress = (to) => {
+        navigate(`/address/${to}`);
+    }
+
+    const handleTransactionHash = (hash) => {
+        navigate(`/tx/${hash}`);
+    }
     return (
         <div className="w-full">
             <div className="max-w-[1380px] mx-auto">
@@ -67,7 +84,7 @@ const TokenTransfers = ({ data, address }) => {
                                             </div>
                                         </td>
                                         <td className="pl-2  text-[14px] leading-[22px] font-normal whitespace-nowrap text-[#066a9c] flex my-2 ">
-                                            <p className="overflow-hidden  max-w-[130px]">
+                                            <p onClick={() => handleTransactionHash(transaction.hash)} className="overflow-hidden cursor-pointer  max-w-[130px]">
                                                 {getShortenAddress(transaction.hash, 19)}
                                             </p>
                                             ...
@@ -82,7 +99,7 @@ const TokenTransfers = ({ data, address }) => {
                                             {timeDifference(transaction.timeStamp)}
                                         </td>
                                         <td className="flex  text-[14px] max-w-[170px] leading-5   md:px-0  whitespace-nowrap gap-1">
-                                            <p className={`${transaction.from === address.toLowerCase()
+                                            <p onClick={() => handlefromAddress(transaction.from)} className={`cursor-pointer ${transaction.from === address.toLowerCase()
                                                 ? ""
                                                 : "text-[#066a9c]"
                                                 }`}>{getShortenAddress(transaction.from)}</p>{" "}
@@ -94,7 +111,7 @@ const TokenTransfers = ({ data, address }) => {
 
                                         <td className=" items-center  text-[14px] max-w-[170px] leading-5   md:px-0  whitespace-nowrap gap-1">
                                             <div className="flex items-center gap-1">
-                                                <p>{getShortenAddress(transaction.to)}</p>{" "}
+                                                <p onClick={() => handletoAddress(transaction.to)} className="cursor-pointer">{getShortenAddress(transaction.to)}</p>{" "}
                                                 <FaRegCopy
                                                     size={15}
                                                     className=" cursor-pointer text-gray-500"

@@ -20,6 +20,8 @@ const index = () => {
         return <p>Error fetching Block data.</p>;
     }
 
+
+
     return (
         <div>
             <BlockHash />

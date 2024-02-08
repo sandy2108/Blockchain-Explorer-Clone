@@ -22,9 +22,12 @@ export const api = createApi({
         fetchBlock: builder.query({
             query: (block) => `/block/${block}`,
         }),
+        fetchTxs: builder.query({
+            query: (block) => `/txs/${block}`
+        })
     }),
 });
 
-export const { useFetchLatestDataQuery, useFetchAddressQuery, useFetchTxQuery, useFetchBlockQuery } = api;
+export const { useFetchLatestDataQuery, useFetchAddressQuery, useFetchTxQuery, useFetchBlockQuery, useFetchTxsQuery } = api;
 export default api;
 
