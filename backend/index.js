@@ -20,6 +20,7 @@ app.use("/", require("./routes/latestData"));
 app.use("/address", require("./routes/address"));
 app.use("/tx", require("./routes/tx"));
 app.use("/block", require("./routes/block"));
+app.use("/txs/", require("./routes/txs"));
 
 const PORT = process.env.PORT || 3500;
 app.listen(PORT, () => {
