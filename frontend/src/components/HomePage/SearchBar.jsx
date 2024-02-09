@@ -3,6 +3,14 @@ import { SvgSearchIcon } from "../../assets/Icons";
 import { useNavigate } from "react-router-dom"
 
 const isValidAddress = (address) => /^0x[0-9a-fA-F]{40}$/.test(address);
+const isValidBlock = (block) => /[0-9]{8}$/.test(block);
+const isValidHash = (hash) => /^0x[0-9a-fA-F]{64}$/.test(hash);
+
+const routes = [
+    { isValid: isValidAddress, route: "/address/" },
+    { isValid: isValidBlock, route: "/block/" },
+    { isValid: isValidHash, route: "/tx/" }
+];
 
 const SearchBar = () => {
     const [searchInput, setSearchInput] = useState("");
@@ -11,17 +19,19 @@ const SearchBar = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if (isValidAddress(searchInput)) {
+        const { target: { searchInput: { value: inputValue } } } = event;
 
-            navigate(`/address/${searchInput}`);
-
-
-            setSearchInput("");
-        } else {
-
-            alert("Invalid Ethereum address");
+        for (const { isValid, route } of routes) {
+            if (isValid(inputValue)) {
+                navigate(`${route}${inputValue}`);
+                setSearchInput("");
+                return;
+            }
         }
+
+        alert("Invalid Ethereum address");
     };
+
 
     return (
         <div
@@ -40,7 +50,7 @@ const SearchBar = () => {
                         <input
                             id="searchInput"
                             name="searchInput"
-                            placeholder="Search by Address / Txn Hash / Block / Token / Domain Name"
+                            placeholder="Search by Address / Txn Hash / Block "
                             className="pl-3 text-[15px] leading-[23px] my-1  rounded-md outline-0 w-full focus:outline-2 outline-slate-300 text-slate-600 placeholder:text-slate-600"
                             value={searchInput}
                             onChange={(e) => setSearchInput(e.target.value)}
