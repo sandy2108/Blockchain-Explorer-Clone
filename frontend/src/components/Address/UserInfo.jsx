@@ -83,7 +83,7 @@ const UserInfo = ({ eth, token, walletBalance }) => {
                                     <MdOutlineKeyboardArrowDown size={20} className="" />
 
                                 </button>
-                                <div className="bg-[#e9ecef] p-3 rounded-md cursor-pointer">
+                                <div className="bg-[#e9ecef] p-3 rounded-md">
                                     <PiWalletBold />
                                 </div>
 
@@ -102,53 +102,14 @@ const UserInfo = ({ eth, token, walletBalance }) => {
                                 Add
                             </button>
                         </div>
-                        <div className="my-3">
-                            <h1 className="text-[#6c757d] text-xs">LAST TXN SENT</h1>
-                            <div className="flex items-center space-x-3 mt-1">
-                                <p className="text-blue-500">ms</p>
-                                <p className="text-[#6c757d] text-sm">from 20/09/2002</p>
-                            </div>
-                        </div>
-                        <div className="my-3">
-                            <h1 className="text-[#6c757d] text-xs">FIRST TXN </h1>
-                            <div className="flex items-center space-x-3  mt-1">
-                                <p className="text-blue-500 ">sd</p>
-                                <p className="text-[#6c757d] text-sm">
-                                    from 23/09/2018
-                                </p>
-                            </div>
-                        </div>
+
+
                     </div>
                     {/* Third div */}
                     <div className="rounded-xl min-h-full border-2 border-[#eef0f3] bg-[#ffffff] p-4 relative">
                         <h1 className="text-md font-medium">Multi Chain</h1>
                         <div className="my-5 flex-1">
                             <h1 className="text-[#6c757d] text-xs">MULTICHAIN ADDRESSES</h1>
-                            <p className="flex items-center font-medium space-x-3 text-[14px] leading-[22px] mt-1">
-                                18 addresses found via
-                                <button
-                                    className="ml-2 flex items-center justify-between rounded-md px-2  py-1 hover-[#e9ecef] border-[#f5f6f8] border-2"
-                                    onClick={() => setBlockScanDropDown(!isblockscandropdown)}
-                                >
-                                    Blockscan{" "}
-                                    <MdOutlineKeyboardArrowDown size={20} className="" />
-                                    {isblockscandropdown && (
-                                        <div
-                                            className="overlay"
-                                            onClick={() => setBlockScanDropDown(false)}
-                                        ></div>
-                                    )}
-                                    {isblockscandropdown && (
-                                        <div className="dropdown absolute  top-1/2    z-10 bg-white border border-gray-300 rounded-md w-1/2 max-h-60 overflow-y-auto">
-                                            {token.map((item) => (
-                                                <div key={item.asset.contracts[0]} className="p-2 cursor-pointer">
-                                                    {item.asset.name}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                </button>
-                            </p>
                         </div>
                     </div>
 
