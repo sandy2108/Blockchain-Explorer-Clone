@@ -7,7 +7,7 @@ app.use(express.json());
 
 // Allow requests only from the specific frontend URL
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: 'https://blockchain-explorer-clone-dgb7.vercel.app/',
     methods: 'GET',
     credentials: true,
     optionsSuccessStatus: 204,
