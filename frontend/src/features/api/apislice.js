@@ -6,6 +6,7 @@ export const api = createApi({
         baseUrl: "https://blockchain-explorer-clone.vercel.app/",
         prepareHeaders: (headers, { getState }) => {
             headers.set("Cache-Control", "no-cache");
+            mode: 'no-cors',
             return headers;
         },
     }),
