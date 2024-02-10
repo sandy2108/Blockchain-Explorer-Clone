@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
     reducerPath: "api",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:3001",
+        baseUrl: "https://blockchain-explorer-clone.vercel.app/",
         prepareHeaders: (headers, { getState }) => {
             headers.set("Cache-Control", "no-cache");
             return headers;
